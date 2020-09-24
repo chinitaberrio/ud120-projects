@@ -27,4 +27,19 @@ features_train, features_test, labels_train, labels_test = preprocess()
 
 #########################################################
 
+from sklearn import svm
 
+#to speed up the training
+features_train = features_train[:int(len(features_train)/100)]
+labels_train = labels_train[:int(len(labels_train)/100)]
+
+
+clf = svm.SVC(kernel="rbf", C=10000)
+t0 = time()
+clf.fit(features_train,labels_train) #features and labels
+print ("training time:", round(time()-t0, 3), "s")
+pre = clf.predict(features_test)  
+print (pre[10], pre[26], pre[50])
+print (sum(pre))
+accuracy = clf.score(features_test,labels_test)
+print (accuracy)
