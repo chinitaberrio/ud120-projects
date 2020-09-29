@@ -4,9 +4,7 @@
     Skeleton code for k-means clustering mini-project.
 """
 
-
-
-
+from sklearn.preprocessing import MinMaxScaler
 import pickle
 import numpy
 import matplotlib.pyplot as plt
@@ -53,6 +51,11 @@ poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+
+scaler = MinMaxScaler()
+finance_features = scaler.fit_transform(finance_features)
+print('scaled features of 200k salary and 1M stocks ', scaler.transform([[ 200000, 1000000]]))
+
 eso = [row[0] for row in finance_features]
 mini = [i for i in eso if i != 0.0]
 
